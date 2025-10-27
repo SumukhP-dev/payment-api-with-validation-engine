@@ -11,6 +11,11 @@ A modular C++ validation engine built as a DLL that integrates with a C# ASP.NET
 
 ---
 
+## Visiting the Website
+You can visit the link [http://paymentapiwithvalidationengine-env.eba-qsdicxhu.eu-north-1.elasticbeanstalk.com/index.html](http://paymentapiwithvalidationengine-env.eba-qsdicxhu.eu-north-1.elasticbeanstalk.com/index.html) to access the latest production build of the website.
+
+---
+
 ## Features (What You’ll See)  
 - Reusable Validation Engine in modern C++17
 - Pluggable Rules (e.g., amount validation, currency validation, name validation)
@@ -25,6 +30,10 @@ A modular C++ validation engine built as a DLL that integrates with a C# ASP.NET
 - **Frameworks**: ASP.NET Core 8.0 (C# Payment API), Native C++ STL (Validation Engine)
 - **Interop**: P/Invoke (DllImport) integration
 - **IDE**: Visual Studio 2022
+- **Cloud Service**: AWS Elastic Beanstalk
+- **Cloud Object Storage**: AWS S3
+- **Cloud Database**: Amazon RDS for PostgreSQL
+- **CI/CD Workflow**: GitHub Actions
 
 ---
 
