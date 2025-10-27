@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>d5953296-8ce1-4d96-91cf-860b6594f0a3</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +15,15 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.*" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.*" />
+    <Reference Include="ValidationEngine">
+      <HintPath>Libraries\ValidationEngine.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+
+    <None Update="Libraries\ValidationEngine.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>ValidationEngine.dll</Link>
+    </None>
   </ItemGroup>
 
 </Project>

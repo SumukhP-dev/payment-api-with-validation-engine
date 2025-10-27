@@ -1,0 +1,12 @@
+﻿  pch.cpp
+  AmountPositiveRule.cpp
+  CurrencyRule.cpp
+  CustomerNameRule.cpp
+  dllmain.cpp
+  ValidationApi.cpp
+     Creating library C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\x64\Release\ValidationEngine.lib and object C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\x64\Release\ValidationEngine.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 366 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  ValidationEngine.vcxproj -> C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\x64\Release\ValidationEngine.dll

@@ -1,74 +1,9 @@
-﻿  AmountPositiveRule.cpp
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\AmountPositiveRule.cpp(5,35): error C2504: 'IValidationRule': base class undefined
-  (compiling source file '/AmountPositiveRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\AmountPositiveRule.cpp(5,50): error C2143: syntax error: missing ',' before '<'
-  (compiling source file '/AmountPositiveRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\AmountPositiveRule.cpp(7,19): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-  (compiling source file '/AmountPositiveRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\AmountPositiveRule.cpp(7,32): error C2143: syntax error: missing ',' before '&'
-  (compiling source file '/AmountPositiveRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\AmountPositiveRule.cpp(7,10): error C3668: 'AmountPositiveRule::validate': method with override specifier 'override' did not override any base class methods
-  (compiling source file '/AmountPositiveRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\AmountPositiveRule.cpp(8,13): error C2065: 'p': undeclared identifier
-  (compiling source file '/AmountPositiveRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\AmountPositiveRule.cpp(8,28): error C2065: 'result': undeclared identifier
-  (compiling source file '/AmountPositiveRule.cpp')
-  
+﻿  pch.cpp
+  AmountPositiveRule.cpp
   CurrencyRule.cpp
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(5,29): error C2504: 'IValidationRule': base class undefined
-  (compiling source file '/CurrencyRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(5,44): error C2143: syntax error: missing ',' before '<'
-  (compiling source file '/CurrencyRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(7,19): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-  (compiling source file '/CurrencyRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(7,32): error C2143: syntax error: missing ',' before '&'
-  (compiling source file '/CurrencyRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(7,10): error C3668: 'CurrencyRule::validate': method with override specifier 'override' did not override any base class methods
-  (compiling source file '/CurrencyRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(8,13): error C2065: 'p': undeclared identifier
-  (compiling source file '/CurrencyRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(8,36): error C2065: 'p': undeclared identifier
-  (compiling source file '/CurrencyRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CurrencyRule.cpp(9,13): error C2065: 'result': undeclared identifier
-  (compiling source file '/CurrencyRule.cpp')
-  
   CustomerNameRule.cpp
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CustomerNameRule.cpp(5,33): error C2504: 'IValidationRule': base class undefined
-  (compiling source file '/CustomerNameRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CustomerNameRule.cpp(5,48): error C2143: syntax error: missing ',' before '<'
-  (compiling source file '/CustomerNameRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CustomerNameRule.cpp(7,19): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-  (compiling source file '/CustomerNameRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CustomerNameRule.cpp(7,32): error C2143: syntax error: missing ',' before '&'
-  (compiling source file '/CustomerNameRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CustomerNameRule.cpp(7,10): error C3668: 'CustomerNameRule::validate': method with override specifier 'override' did not override any base class methods
-  (compiling source file '/CustomerNameRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CustomerNameRule.cpp(8,13): error C2065: 'p': undeclared identifier
-  (compiling source file '/CustomerNameRule.cpp')
-  
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\CustomerNameRule.cpp(8,37): error C2065: 'result': undeclared identifier
-  (compiling source file '/CustomerNameRule.cpp')
-  
+  dllmain.cpp
   ValidationApi.cpp
-C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\ValidationEngine\ValidationApi.cpp(37,13): error C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/ValidationApi.cpp')
-  
   Generating Code...
+     Creating library C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\x64\Debug\ValidationEngine.lib and object C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\x64\Debug\ValidationEngine.exp
+  ValidationEngine.vcxproj -> C:\Users\sumuk\Financial_Stock_Picker_Website\PaymentProcessorSimulatorAPI\ValidationEngine\x64\Debug\ValidationEngine.dll

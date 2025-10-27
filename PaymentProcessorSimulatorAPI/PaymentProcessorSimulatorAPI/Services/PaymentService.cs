@@ -8,6 +8,18 @@ namespace PaymentApi.Services
 
         public Payment CreatePayment(Payment payment)
         {
+            // Call into C++ validation engine with proper parameters
+            var (isValid, errorMessage) = CPlusPlusValidationWrapper.ValidatePaymentSafe(
+                payment.CustomerName,
+                (double)payment.Amount,  // Convert decimal to double
+                payment.Currency
+            );
+
+            if (!isValid)
+            {
+                throw new InvalidOperationException($"Payment validation failed: {errorMessage}");
+            }
+
             _payments.Add(payment);
             return payment;
         }

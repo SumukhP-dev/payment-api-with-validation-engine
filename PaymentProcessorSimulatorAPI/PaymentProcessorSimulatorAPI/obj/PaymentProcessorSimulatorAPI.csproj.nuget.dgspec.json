@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sumuk\\Financial_Stock_Picker_Website\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj": {}
+    "C:\\Users\\sumuk\\payment_api\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sumuk\\Financial_Stock_Picker_Website\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj": {
+    "C:\\Users\\sumuk\\payment_api\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sumuk\\Financial_Stock_Picker_Website\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj",
+        "projectUniqueName": "C:\\Users\\sumuk\\payment_api\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj",
         "projectName": "PaymentProcessorSimulatorAPI",
-        "projectPath": "C:\\Users\\sumuk\\Financial_Stock_Picker_Website\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj",
+        "projectPath": "C:\\Users\\sumuk\\payment_api\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI.csproj",
         "packagesPath": "C:\\Users\\sumuk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sumuk\\Financial_Stock_Picker_Website\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\obj\\",
+        "outputPath": "C:\\Users\\sumuk\\payment_api\\PaymentProcessorSimulatorAPI\\PaymentProcessorSimulatorAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -78,12 +79,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[8.0.20, 8.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -93,11 +88,6 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "linux-x64": {
-          "#import": []
         }
       }
     }

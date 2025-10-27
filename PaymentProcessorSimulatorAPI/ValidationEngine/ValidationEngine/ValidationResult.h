@@ -2,12 +2,13 @@
 #include <string>
 #include <vector>
 
-struct ValidationResult {
+class ValidationResult {
+public:
     bool isValid = true;
     std::vector<std::string> errors;
 
-    void addError(const std::string& err) {
+    void addError(const std::string& message) {
         isValid = false;
-        errors.push_back(err);
+        errors.push_back(message);
     }
 };
