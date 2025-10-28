@@ -19,7 +19,6 @@ using PaymentApi.Services;
 namespace PaymentApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class PaymentsController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
@@ -29,14 +28,14 @@ namespace PaymentApi.Controllers
             _paymentService = paymentService;
         }
 
-        [HttpPost]
+        [HttpPost("api/payment")]
         public IActionResult CreatePayment([FromBody] Payment payment)
         {
             var created = _paymentService.CreatePayment(payment);
             return CreatedAtAction(nameof(GetPayment), new { id = created.Id }, created);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("api/payment/{id:guid}")]
         public IActionResult GetPayment(Guid id)
         {
             var payment = _paymentService.GetPayment(id);
@@ -46,28 +45,28 @@ namespace PaymentApi.Controllers
             return Ok(payment);
         }
 
-        [HttpGet]
+        [HttpGet("api/payments")]
         public IActionResult GetAllPayments()
         {
             return Ok(_paymentService.GetAllPayments());
         }
 
         // Debug endpoints
-        [HttpGet("debug/status")]
+        [HttpGet("api/payment/debug/status")]
         public IActionResult GetDebugStatus()
         {
             var isDebugEnabled = _paymentService.IsDebugModeEnabled();
             return Ok(new { DebugModeEnabled = isDebugEnabled });
         }
 
-        [HttpPost("debug/dump-memory-leaks")]
+        [HttpPost("api/payment/debug/dump-memory-leaks")]
         public IActionResult DumpMemoryLeaks()
         {
             _paymentService.DumpMemoryLeaks();
             return Ok(new { Message = "Memory leak dump initiated. Check console and log files." });
         }
 
-        [HttpPost("debug/disable")]
+        [HttpPost("api/payment/debug/disable")]
         public IActionResult DisableDebugMode()
         {
             _paymentService.DisableDebugMode();

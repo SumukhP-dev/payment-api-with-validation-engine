@@ -1,0 +1,4 @@
+[DEBUG] Debug mode enabled at 1761690396
+[DEBUG] Memory leak detection enabled
+[DEBUG] ValidatePayment called with: name=Test User, amount=50, currency=USD
+[DEBUG] Validation result: VALID
