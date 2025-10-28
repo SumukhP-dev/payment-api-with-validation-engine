@@ -20,11 +20,11 @@ namespace PaymentApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PaymentController : ControllerBase
+    public class PaymentsController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
 
-        public PaymentController(IPaymentService paymentService)
+        public PaymentsController(IPaymentService paymentService)
         {
             _paymentService = paymentService;
         }
@@ -50,6 +50,28 @@ namespace PaymentApi.Controllers
         public IActionResult GetAllPayments()
         {
             return Ok(_paymentService.GetAllPayments());
+        }
+
+        // Debug endpoints
+        [HttpGet("debug/status")]
+        public IActionResult GetDebugStatus()
+        {
+            var isDebugEnabled = _paymentService.IsDebugModeEnabled();
+            return Ok(new { DebugModeEnabled = isDebugEnabled });
+        }
+
+        [HttpPost("debug/dump-memory-leaks")]
+        public IActionResult DumpMemoryLeaks()
+        {
+            _paymentService.DumpMemoryLeaks();
+            return Ok(new { Message = "Memory leak dump initiated. Check console and log files." });
+        }
+
+        [HttpPost("debug/disable")]
+        public IActionResult DisableDebugMode()
+        {
+            _paymentService.DisableDebugMode();
+            return Ok(new { Message = "Debug mode disabled." });
         }
     }
 }
