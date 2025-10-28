@@ -1,9 +1,0 @@
-[DEBUG] Debug mode enabled at 1761689013
-[DEBUG] Memory leak detection enabled
-[DEBUG] ValidatePayment called with: name=anon, amount=10, currency=USD
-[DEBUG] Validation result: VALID
-[DEBUG] ValidatePayment called with: name=anon, amount=10, currency=USD
-[DEBUG] Validation result: VALID
-[DEBUG] ValidatePayment called with: name=anon, amount=0, currency=USD
-[DEBUG] Validation error: Payment amount must be greater than zero.
-[DEBUG] Validation result: INVALID

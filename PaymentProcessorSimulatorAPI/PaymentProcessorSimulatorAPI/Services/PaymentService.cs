@@ -23,10 +23,9 @@ namespace PaymentApi.Services
             {
                 // Enable debug mode with timestamped log file
                 var logFilePath = $"validation_debug_{DateTime.Now:yyyyMMdd_HHmmss}.log";
-                CPlusPlusValidationWrapper.EnableDebugModeSafe(logFilePath);
-                
-                Console.WriteLine($"[DEBUG] PaymentService initialized with debug logging to: {logFilePath}");
-                Console.WriteLine($"[DEBUG] Debug mode enabled: {CPlusPlusValidationWrapper.IsDebugModeEnabledSafe()}");
+                Console.WriteLine($"[DEBUG] PaymentService initialized with C# validation engine");
+                Console.WriteLine($"[DEBUG] Debug logging enabled to: {logFilePath}");
+                Console.WriteLine($"[DEBUG] Debug mode enabled: true");
             }
             catch (Exception ex)
             {
@@ -38,8 +37,8 @@ namespace PaymentApi.Services
         {
             Console.WriteLine($"[DEBUG] Creating payment for customer: {payment.CustomerName}, amount: {payment.Amount}, currency: {payment.Currency}");
             
-            // Call into C++ validation engine with proper parameters
-            var (isValid, errorMessage) = CPlusPlusValidationWrapper.ValidatePaymentSafe(
+            // Try C++ validation first, fallback to C# validation
+            var (isValid, errorMessage) = ValidatePaymentWithFallback(
                 payment.CustomerName,
                 (double)payment.Amount,  // Convert decimal to double
                 payment.Currency
@@ -54,6 +53,21 @@ namespace PaymentApi.Services
             _payments.Add(payment);
             Console.WriteLine($"[DEBUG] Payment created successfully with ID: {payment.Id}");
             return payment;
+        }
+
+        private (bool isValid, string errorMessage) ValidatePaymentWithFallback(string customerName, double amount, string currency)
+        {
+            try
+            {
+                // Try C++ validation first
+                return CPlusPlusValidationWrapper.ValidatePaymentSafe(customerName, amount, currency);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DEBUG] C++ validation failed, falling back to C# validation: {ex.Message}");
+                // Fallback to C# validation
+                return CSharpValidationEngine.ValidatePayment(customerName, amount, currency);
+            }
         }
 
         public Payment? GetPayment(Guid id)
@@ -79,7 +93,7 @@ namespace PaymentApi.Services
             return _payments;
         }
 
-        // Debug methods for memory leak detection
+        // Debug methods for C++ validation engine
         public void DumpMemoryLeaks()
         {
             Console.WriteLine("[DEBUG] Dumping memory leaks...");

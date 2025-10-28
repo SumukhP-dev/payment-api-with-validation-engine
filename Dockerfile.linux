@@ -1,0 +1,67 @@
+# Multi-stage Dockerfile for Linux deployment with C++ DLL
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+# Build stage for C++ DLL
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS cpp-build
+WORKDIR /src
+
+# Install build tools for C++
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    g++ \
+    make \
+    cmake \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy C++ source code
+COPY ["PaymentProcessorSimulatorAPI/ValidationEngine/", "ValidationEngine/"]
+WORKDIR /src/ValidationEngine
+
+# Build C++ DLL for Linux
+RUN g++ -shared -fPIC -o ValidationEngine.so \
+    ValidationEngine/AmountPositiveRule.cpp \
+    ValidationEngine/CurrencyRule.cpp \
+    ValidationEngine/CustomerNameRule.cpp \
+    ValidationEngine/ValidationApi.cpp \
+    -I ValidationEngine/
+
+# Build stage for .NET application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+
+# Copy project files
+COPY ["PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj", "PaymentProcessorSimulatorAPI/"]
+RUN dotnet restore "./PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj"
+
+# Copy all source code
+COPY . .
+WORKDIR "/src/PaymentProcessorSimulatorAPI"
+
+# Copy the Linux C++ library
+COPY --from=cpp-build /src/ValidationEngine/ValidationEngine.so ./Libraries/ValidationEngine.dll
+
+# Build the .NET application
+RUN dotnet build "./PaymentProcessorSimulatorAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Publish stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./PaymentProcessorSimulatorAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# Final stage
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+# Install runtime dependencies for C++ library
+RUN apt-get update && apt-get install -y \
+    libc6 \
+    libstdc++6 \
+    && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["dotnet", "PaymentProcessorSimulatorAPI.dll"]
