@@ -75,3 +75,9 @@ C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulato
 C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\obj\Debug\net8.0\PaymentProcessorSimulatorAPI.pdb
 C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\obj\Debug\net8.0\PaymentProcessorSimulatorAPI.genruntimeconfig.cache
 C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\obj\Debug\net8.0\ref\PaymentProcessorSimulatorAPI.dll
+C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\bin\Debug\net8.0\publish\web.config
+C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\bin\Debug\net8.0\publish\PaymentProcessorSimulatorAPI.deps.json
+C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\bin\Debug\net8.0\publish\PaymentProcessorSimulatorAPI.runtimeconfig.json
+C:\Users\sumuk\payment_api\PaymentProcessorSimulatorAPI\PaymentProcessorSimulatorAPI\bin\Debug\net8.0\publish\PaymentProcessorSimulatorAPI.staticwebassets.endpoints.json
