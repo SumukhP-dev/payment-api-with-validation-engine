@@ -31,8 +31,19 @@ namespace PaymentApi.Controllers
         [HttpPost("api/payment")]
         public IActionResult CreatePayment([FromBody] Payment payment)
         {
-            var created = _paymentService.CreatePayment(payment);
-            return CreatedAtAction(nameof(GetPayment), new { id = created.Id }, created);
+            try
+            {
+                var created = _paymentService.CreatePayment(payment);
+                return CreatedAtAction(nameof(GetPayment), new { id = created.Id }, created);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while processing the payment." });
+            }
         }
 
         [HttpGet("api/payment/{id:guid}")]
