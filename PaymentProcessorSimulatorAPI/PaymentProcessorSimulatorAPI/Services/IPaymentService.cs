@@ -7,10 +7,5 @@ namespace PaymentApi.Services
         Payment CreatePayment(Payment payment);
         Payment? GetPayment(Guid id);
         IEnumerable<Payment> GetAllPayments();
-        
-        // Debug methods
-        void DumpMemoryLeaks();
-        bool IsDebugModeEnabled();
-        void DisableDebugMode();
     }
 }

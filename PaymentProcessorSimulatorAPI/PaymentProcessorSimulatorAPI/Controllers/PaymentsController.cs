@@ -62,26 +62,5 @@ namespace PaymentApi.Controllers
             return Ok(_paymentService.GetAllPayments());
         }
 
-        // Debug endpoints
-        [HttpGet("api/payment/debug/status")]
-        public IActionResult GetDebugStatus()
-        {
-            var isDebugEnabled = _paymentService.IsDebugModeEnabled();
-            return Ok(new { DebugModeEnabled = isDebugEnabled });
-        }
-
-        [HttpPost("api/payment/debug/dump-memory-leaks")]
-        public IActionResult DumpMemoryLeaks()
-        {
-            _paymentService.DumpMemoryLeaks();
-            return Ok(new { Message = "Memory leak dump initiated. Check console and log files." });
-        }
-
-        [HttpPost("api/payment/debug/disable")]
-        public IActionResult DisableDebugMode()
-        {
-            _paymentService.DisableDebugMode();
-            return Ok(new { Message = "Debug mode disabled." });
-        }
     }
 }

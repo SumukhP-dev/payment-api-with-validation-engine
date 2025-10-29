@@ -107,44 +107,5 @@ namespace PaymentApi.Services
             return _payments;
         }
 
-        // Debug methods for C++ validation engine
-        public void DumpMemoryLeaks()
-        {
-            Console.WriteLine("[DEBUG] Dumping memory leaks...");
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                CPlusPlusValidationWrapper.DumpMemoryLeaksSafe();
-            }
-            else
-            {
-                Console.WriteLine("[DEBUG] Memory leak dump not available on non-Windows platforms");
-            }
-        }
-
-        public bool IsDebugModeEnabled()
-        {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                return CPlusPlusValidationWrapper.IsDebugModeEnabledSafe();
-            }
-            else
-            {
-                Console.WriteLine("[DEBUG] Debug mode check not available on non-Windows platforms");
-                return false;
-            }
-        }
-
-        public void DisableDebugMode()
-        {
-            Console.WriteLine("[DEBUG] Disabling debug mode...");
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                CPlusPlusValidationWrapper.DisableDebugModeSafe();
-            }
-            else
-            {
-                Console.WriteLine("[DEBUG] Debug mode control not available on non-Windows platforms");
-            }
-        }
     }
 }
