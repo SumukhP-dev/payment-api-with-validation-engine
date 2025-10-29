@@ -1,4 +1,5 @@
 ﻿using PaymentApi.Models;
+using System.Runtime.InteropServices;
 
 namespace PaymentApi.Services
 {
@@ -57,15 +58,28 @@ namespace PaymentApi.Services
 
         private (bool isValid, string errorMessage) ValidatePaymentWithFallback(string customerName, double amount, string currency)
         {
-            try
+            // Check if running on Windows and if ValidationEngine.dll is available
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && 
+                System.IO.File.Exists("ValidationEngine.dll"))
             {
-                // Try C++ validation first
-                return CPlusPlusValidationWrapper.ValidatePaymentSafe(customerName, amount, currency);
+                try
+                {
+                    // Try C++ validation first on Windows if DLL is available
+                    Console.WriteLine($"[DEBUG] 🔧 Using C++ Validation Engine (Native DLL)");
+                    return CPlusPlusValidationWrapper.ValidatePaymentSafe(customerName, amount, currency);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[DEBUG] ⚠️ C++ validation failed, falling back to C# validation: {ex.Message}");
+                    // Fallback to C# validation
+                    Console.WriteLine($"[DEBUG] 🔄 Using C# Validation Engine (Fallback)");
+                    return CSharpValidationEngine.ValidatePayment(customerName, amount, currency);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"[DEBUG] C++ validation failed, falling back to C# validation: {ex.Message}");
-                // Fallback to C# validation
+                // On Linux/macOS or when DLL is not available, use C# validation directly
+                Console.WriteLine($"[DEBUG] 🔄 Using C# Validation Engine (platform: {System.Runtime.InteropServices.RuntimeInformation.OSDescription})");
                 return CSharpValidationEngine.ValidatePayment(customerName, amount, currency);
             }
         }
@@ -97,18 +111,40 @@ namespace PaymentApi.Services
         public void DumpMemoryLeaks()
         {
             Console.WriteLine("[DEBUG] Dumping memory leaks...");
-            CPlusPlusValidationWrapper.DumpMemoryLeaksSafe();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                CPlusPlusValidationWrapper.DumpMemoryLeaksSafe();
+            }
+            else
+            {
+                Console.WriteLine("[DEBUG] Memory leak dump not available on non-Windows platforms");
+            }
         }
 
         public bool IsDebugModeEnabled()
         {
-            return CPlusPlusValidationWrapper.IsDebugModeEnabledSafe();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return CPlusPlusValidationWrapper.IsDebugModeEnabledSafe();
+            }
+            else
+            {
+                Console.WriteLine("[DEBUG] Debug mode check not available on non-Windows platforms");
+                return false;
+            }
         }
 
         public void DisableDebugMode()
         {
             Console.WriteLine("[DEBUG] Disabling debug mode...");
-            CPlusPlusValidationWrapper.DisableDebugModeSafe();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                CPlusPlusValidationWrapper.DisableDebugModeSafe();
+            }
+            else
+            {
+                Console.WriteLine("[DEBUG] Debug mode control not available on non-Windows platforms");
+            }
         }
     }
 }

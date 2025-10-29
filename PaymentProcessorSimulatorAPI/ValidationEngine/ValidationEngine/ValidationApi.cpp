@@ -49,10 +49,13 @@ extern "C" {
 
 		if (!result.isValid) {
 			std::string errors;
-			for (auto& e : result.errors) {
-				errors += e + "\n";
+			for (size_t i = 0; i < result.errors.size(); ++i) {
+				errors += result.errors[i];
+				if (i < result.errors.size() - 1) {
+					errors += " ";
+				}
 				if (g_debugEnabled) {
-					g_debugLog << "[DEBUG] Validation error: " << e << std::endl;
+					g_debugLog << "[DEBUG] Validation error: " << result.errors[i] << std::endl;
 				}
 			}
 
