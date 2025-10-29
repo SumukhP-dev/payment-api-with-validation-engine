@@ -20,7 +20,7 @@
       <Private>true</Private>
     </Reference>
 
-    <None Update="Libraries\ValidationEngine.dll">
+    <None Include="Libraries\ValidationEngine.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Link>ValidationEngine.dll</Link>
     </None>
