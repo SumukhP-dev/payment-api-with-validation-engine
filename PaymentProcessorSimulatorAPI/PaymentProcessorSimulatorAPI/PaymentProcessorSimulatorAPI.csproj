@@ -24,6 +24,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Link>ValidationEngine.dll</Link>
     </None>
+    
+    <!-- Include web.config in the publish output -->
+    <Content Include="web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <!-- Debug configuration -->
