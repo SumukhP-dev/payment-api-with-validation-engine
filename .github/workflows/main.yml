@@ -31,11 +31,11 @@ jobs:
       run: dotnet build ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-restore --configuration Release
       
     - name: Publish
-      run: dotnet publish ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-build --configuration Release --output ./publish
+      run: dotnet publish ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-build --configuration Release --output ${{ env.DOTNET_ROOT }}/myapp
       
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ./publish
+        package: ${{ env.DOTNET_ROOT }}/myapp

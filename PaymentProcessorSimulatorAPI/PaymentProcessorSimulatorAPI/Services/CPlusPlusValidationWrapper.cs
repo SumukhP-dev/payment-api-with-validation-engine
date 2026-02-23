@@ -23,12 +23,24 @@ namespace PaymentApi.Services
             {
                 try
                 {
-                    // Try to load the DLL without calling any functions
-                    var handle = LoadLibrary("ValidationEngine.dll");
-                    _dllAvailable = handle != IntPtr.Zero;
-                    if (handle != IntPtr.Zero)
+                    // Check if we're in Azure/Production environment
+                    var isAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
+                    var isProduction = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production";
+
+                    if (isAzure || isProduction)
                     {
-                        FreeLibrary(handle);
+                        // Disable native DLL in Azure/Production to prevent crashes
+                        _dllAvailable = false;
+                    }
+                    else
+                    {
+                        // Only try to load DLL in development/local environments
+                        var handle = LoadLibrary("ValidationEngine.dll");
+                        _dllAvailable = handle != IntPtr.Zero;
+                        if (handle != IntPtr.Zero)
+                        {
+                            FreeLibrary(handle);
+                        }
                     }
                 }
                 catch
@@ -55,14 +67,14 @@ namespace PaymentApi.Services
 
             if (!_dllAvailable)
             {
-                return (false, "ValidationEngine.dll not available, using C# fallback");
+                return (false, "C++ validation engine disabled in Azure/Production environment, using C# fallback");
             }
 
             try
             {
                 const int bufferSize = 1024;
                 var errorBuffer = new StringBuilder(bufferSize);
-                
+
                 bool isValid = ValidatePayment(name, amount, currency, errorBuffer, bufferSize);
                 string errorMessage = errorBuffer.ToString();
                 return (isValid, errorMessage);
