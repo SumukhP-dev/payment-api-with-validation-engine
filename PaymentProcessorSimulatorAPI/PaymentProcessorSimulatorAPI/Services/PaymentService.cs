@@ -79,7 +79,9 @@ namespace PaymentApi.Services
             else
             {
                 // On Linux/macOS or when DLL is not available, use C# validation directly
-                Console.WriteLine($"[DEBUG] 🔄 Using C# Validation Engine (platform: {System.Runtime.InteropServices.RuntimeInformation.OSDescription})");
+                var platform = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+                var dllExists = System.IO.File.Exists("ValidationEngine.dll");
+                Console.WriteLine($"[DEBUG] 🔄 Using C# Validation Engine (platform: {platform}, dll exists: {dllExists})");
                 return CSharpValidationEngine.ValidatePayment(customerName, amount, currency);
             }
         }

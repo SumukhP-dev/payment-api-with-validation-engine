@@ -20,7 +20,7 @@
       <Private>true</Private>
     </Reference>
 
-    <None Include="..\ValidationEngine\x64\Release\ValidationEngine.dll" Condition="'$(OS)' == 'Windows_NT'">
+    <None Include="..\ValidationEngine\x64\Release\ValidationEngine.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Link>ValidationEngine.dll</Link>
     </None>
