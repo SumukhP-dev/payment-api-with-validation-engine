@@ -8,15 +8,6 @@ namespace PaymentApi.Services
         private static bool _dllChecked = false;
         private static bool _dllAvailable = false;
 
-        // Import the function from the native DLL
-        [DllImport("ValidationEngine.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool ValidatePayment(
-            [MarshalAs(UnmanagedType.LPStr)] string name,
-            double amount,
-            [MarshalAs(UnmanagedType.LPStr)] string currency,
-            [MarshalAs(UnmanagedType.LPStr)] StringBuilder errorBuffer,
-            int bufferSize);
-
         private static void CheckDllAvailability()
         {
             if (!_dllChecked)
@@ -70,11 +61,20 @@ namespace PaymentApi.Services
                 return (false, "C++ validation engine disabled in Azure/Production environment, using C# fallback");
             }
 
+            // Import the function from the native DLL only when needed and available
+            [DllImport("ValidationEngine.dll", CallingConvention = CallingConvention.Cdecl)]
+            static extern bool ValidatePayment(
+                [MarshalAs(UnmanagedType.LPStr)] string name,
+                double amount,
+                [MarshalAs(UnmanagedType.LPStr)] string currency,
+                [MarshalAs(UnmanagedType.LPStr)] StringBuilder errorBuffer,
+                int bufferSize);
+
             try
             {
                 const int bufferSize = 1024;
                 var errorBuffer = new StringBuilder(bufferSize);
-
+                
                 bool isValid = ValidatePayment(name, amount, currency, errorBuffer, bufferSize);
                 string errorMessage = errorBuffer.ToString();
                 return (isValid, errorMessage);
