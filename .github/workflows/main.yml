@@ -1,99 +1,41 @@
-﻿name: Deploy to AWS Elastic Beanstalk
+name: .NET CI/CD to Azure Web App
 
 on:
   push:
-    branches: ["main"]
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  AZURE_WEBAPP_NAME: your-webapp-name    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'          # set this to the path to your web app project
+  DOTNET_VERSION: '8.0.x'                 # set this to the .NET version to use
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: windows-latest
+    
     steps:
-      # Checkout repo
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Install .NET SDK
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'   # EB-supported LTS
-
-      # Install AWS EB CLI
-      - name: Install AWS Elastic Beanstalk CLI
-        run: |
-          pip install awsebcli --upgrade --user
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Install AWS CLI
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install --update
-          aws --version
-
-      # Publish Web API project
-      - name: Publish .NET project
-        run: |
-          dotnet publish ./PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj \
-            -c Release \
-            -r linux-x64 \
-            --self-contained false \
-            -o ./publish
-
-      - name: Validate publish output
-        run: |
-          ls -lh ./publish
-          if ! ls ./publish/*.runtimeconfig.json 1> /dev/null 2>&1; then
-            echo "❌ runtimeconfig.json missing! Ensure you're publishing your Web API project (Sdk.Web)."
-            exit 1
-          fi
-
-      # Package deployment bundle
-      - name: Package deployment bundle
-        run: |
-          rm -f app.zip
-          zip -j app.zip publish/*
-          unzip -l app.zip   # list contents for debugging
-
-      # Detect latest .NET 8 AL2023 platform
-      - name: Get EB platform
-        id: platform
-        run: |
-          PLATFORM=$(aws elasticbeanstalk list-available-solution-stacks \
-            --region "$AWS_REGION" \
-            --query "SolutionStacks[?contains(@, 'Amazon Linux 2023') && contains(@, '.NET Core') && contains(@, '8')][-1]" \
-            --output text)
-          echo "Using EB platform: $PLATFORM"
-          echo "PLATFORM=$PLATFORM" >> $GITHUB_ENV
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-
-      - name: Deploy app
-        env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            AWS_REGION: ${{ secrets.AWS_REGION }}
-            EB_APPLICATION_NAME: ${{ secrets.EB_APPLICATION_NAME }}
-            EB_ENVIRONMENT_NAME: ${{ secrets.EB_ENVIRONMENT_NAME }}
-            S3_BUCKET: ${{ secrets.EB_DEPLOY_BUCKET }}
-            PLATFORM: "64bit Amazon Linux 2023 v3.5.5 running .NET 8"
-        run: |
-            export AWS_PAGER=""   # ✅ disable pager so aws cli won't crash
-            VERSION="github-$(date +%Y%m%d%H%M%S)"
-            echo "📦 Uploading app.zip to s3://$S3_BUCKET/$VERSION.zip"
-            aws s3 cp app.zip s3://$S3_BUCKET/$VERSION.zip --region "$AWS_REGION"
-    
-            echo "📄 Creating EB application version: $VERSION"
-            aws elasticbeanstalk create-application-version \
-              --application-name "$EB_APPLICATION_NAME" \
-              --version-label "$VERSION" \
-              --source-bundle S3Bucket=$S3_BUCKET,S3Key=$VERSION.zip \
-              --region "$AWS_REGION"
-    
-            echo "🚀 Updating EB environment: $EB_ENVIRONMENT_NAME"
-            aws elasticbeanstalk update-environment \
-              --environment-name "$EB_ENVIRONMENT_NAME" \
-              --version-label "$VERSION" \
-              --region "$AWS_REGION"
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj
+      
+    - name: Build
+      run: dotnet build ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-restore --configuration Release
+      
+    - name: Publish
+      run: dotnet publish ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-build --configuration Release --output ${{ env.DOTNET_ROOT }}/myapp
+      
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.DOTNET_ROOT }}/myapp
