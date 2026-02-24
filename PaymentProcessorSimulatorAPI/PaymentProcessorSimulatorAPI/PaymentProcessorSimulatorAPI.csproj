@@ -16,11 +16,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.*" />
     <Reference Include="ValidationEngine">
-      <HintPath>..\ValidationEngine\x64\Release\ValidationEngine.dll</HintPath>
+      <HintPath>..\ValidationEngine\Release\ValidationEngine.dll</HintPath>
       <Private>true</Private>
     </Reference>
 
-    <None Include="..\ValidationEngine\x64\Release\ValidationEngine.dll">
+    <None Include="..\ValidationEngine\Release\ValidationEngine.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Link>ValidationEngine.dll</Link>
     </None>
