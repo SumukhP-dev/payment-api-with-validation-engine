@@ -28,10 +28,10 @@ jobs:
       run: dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj
       
     - name: Build
-      run: dotnet build ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-restore --configuration Release --property:Platform=x86
+      run: dotnet build ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-restore --configuration Release /p:Platform=x86
       
     - name: Publish
-      run: dotnet publish ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-build --configuration Release --property:Platform=x86 --output ./publish
+      run: dotnet publish ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI/PaymentProcessorSimulatorAPI.csproj --no-build --configuration Release /p:Platform=x86 --output ./publish
       
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
