@@ -6,13 +6,8 @@
 
 
 
-
-
-
-
-
-
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using PaymentApi.Models;
 using PaymentApi.Services;
 
@@ -29,6 +24,9 @@ namespace PaymentApi.Controllers
         }
 
         [HttpPost("api/payment")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerRequestExample(typeof(Payment), example: PaymentExample.Default)]
         public IActionResult CreatePayment([FromBody] Payment payment)
         {
             try
@@ -42,7 +40,7 @@ namespace PaymentApi.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(500, new { error = "An unexpected error occurred while processing the payment." });
+                return StatusCode(500, new { error = "An unexpected error occurred while processing payment." });
             }
         }
 

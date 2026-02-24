@@ -24,6 +24,10 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1",
         Description = "An API for handling payment processing with Swagger documentation."
     });
+    
+    // Add default JSON example for Payment model
+    options.EnableAnnotations();
+    options.UseInlineDefinitionsForEnums();
 });
 
 // Register your Payment Service
