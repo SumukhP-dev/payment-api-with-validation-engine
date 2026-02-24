@@ -42,10 +42,20 @@ extern "C" {
 
 		Payment p{ name ? name : "", amount, currency ? currency : "" };
 
+		if (g_debugEnabled) {
+			g_debugLog << "[DEBUG] Payment object created: name='" << p.customerName << "', amount=" << p.amount << ", currency='" << p.currency << "'" << std::endl;
+			std::cout << "[DEBUG] Payment object created: name='" << p.customerName << "', amount=" << p.amount << ", currency='" << p.currency << "'" << std::endl;
+		}
+
 		ValidationEngine<Payment> engine;
 		engine.addRule(std::make_unique<AmountPositiveRule>());
 		engine.addRule(std::make_unique<CustomerNameRule>());
 		engine.addRule(std::make_unique<CurrencyRule>());
+
+		if (g_debugEnabled) {
+			g_debugLog << "[DEBUG] Validation rules added: AmountPositiveRule, CustomerNameRule, CurrencyRule" << std::endl;
+			std::cout << "[DEBUG] Validation rules added: AmountPositiveRule, CustomerNameRule, CurrencyRule" << std::endl;
+		}
 
 		ValidationResult result = engine.validate(p);
 
