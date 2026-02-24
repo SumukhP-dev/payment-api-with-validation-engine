@@ -17,15 +17,16 @@ namespace PaymentApi.Services
                     // Check if we're in Azure/Production environment
                     var isAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
                     var isProduction = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production";
+                    var enableCppValidation = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ENABLE_CPP_VALIDATION"));
 
-                    if (isAzure || isProduction)
+                    if ((isAzure || isProduction) && !enableCppValidation)
                     {
-                        // Disable native DLL in Azure/Production to prevent crashes
+                        // Disable native DLL in Azure/Production unless explicitly enabled
                         _dllAvailable = false;
                     }
                     else
                     {
-                        // Only try to load DLL in development/local environments
+                        // Try to load DLL in development/local environments or when explicitly enabled
                         var handle = LoadLibrary("ValidationEngine.dll");
                         _dllAvailable = handle != IntPtr.Zero;
                         if (handle != IntPtr.Zero)
