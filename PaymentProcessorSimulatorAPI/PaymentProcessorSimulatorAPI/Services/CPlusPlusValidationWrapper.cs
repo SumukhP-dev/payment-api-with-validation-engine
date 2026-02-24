@@ -60,7 +60,7 @@ namespace PaymentApi.Services
             if (!_dllAvailable)
             {
                 var enableCppValidation = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ENABLE_CPP_VALIDATION"));
-                return (false, $"Payment validation failed using C# validation engine (VERSION=1.0.3)");
+                return (false, $"Payment validation failed using C# validation engine (VERSION=1.0.3, ENABLE_CPP_VALIDATION={enableCppValidation})");
             }
 
             // Import the function from the native DLL only when needed and available
