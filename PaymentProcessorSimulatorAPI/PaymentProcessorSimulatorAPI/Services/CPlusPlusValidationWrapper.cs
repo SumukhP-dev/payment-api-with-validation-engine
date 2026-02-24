@@ -59,7 +59,8 @@ namespace PaymentApi.Services
 
             if (!_dllAvailable)
             {
-                return (false, "C++ validation engine disabled in Azure/Production environment, using C# fallback");
+                var enableCppValidation = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ENABLE_CPP_VALIDATION"));
+                return (false, $"C++ validation engine disabled in Azure/Production environment, using C# fallback (ENABLE_CPP_VALIDATION={enableCppValidation})");
             }
 
             // Import the function from the native DLL only when needed and available
