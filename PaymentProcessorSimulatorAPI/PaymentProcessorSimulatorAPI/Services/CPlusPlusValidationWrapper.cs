@@ -21,8 +21,9 @@ namespace PaymentApi.Services
 
                     if ((isAzure || isProduction) && !enableCppValidation)
                     {
-                        // Disable native DLL in Azure/Production unless explicitly enabled
-                        _dllAvailable = false;
+                        // Temporarily comment out to force C++ validation for testing
+                        // _dllAvailable = false;
+                        _dllAvailable = true; // Force C++ validation
                     }
                     else
                     {
