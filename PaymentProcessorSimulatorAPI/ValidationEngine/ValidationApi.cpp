@@ -36,6 +36,8 @@ extern "C" {
 		if (g_debugEnabled) {
 			g_debugLog << "[DEBUG] ValidatePayment called with: name=" << (name ? name : "null") 
 					   << ", amount=" << amount << ", currency=" << (currency ? currency : "null") << std::endl;
+			std::cout << "[DEBUG] ValidatePayment called with: name=" << (name ? name : "null") 
+					   << ", amount=" << amount << ", currency=" << (currency ? currency : "null") << std::endl;
 		}
 
 		Payment p{ name ? name : "", amount, currency ? currency : "" };
