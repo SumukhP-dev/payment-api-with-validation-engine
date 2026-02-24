@@ -61,7 +61,8 @@ namespace PaymentApi.Services
 
             if (!_dllAvailable)
             {
-                return (false, $"Payment validation failed. Please check your payment details: customer name must be at least 2 characters, amount must be greater than 0, and currency must be a valid 3-letter code.");
+                var enableCppValidation = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ENABLE_CPP_VALIDATION"));
+                return (false, $"Payment validation failed. Please check your payment details: customer name must be at least 2 characters, amount must be greater than 0, and currency must be a valid 3-letter code. C++ engine attempted: {enableCppValidation}");
             }
 
             // Import the function from the native DLL only when needed and available
