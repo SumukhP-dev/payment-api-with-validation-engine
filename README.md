@@ -12,18 +12,18 @@ A modular C++ validation engine built as a DLL that integrates with a C# ASP.NET
 ---
 
 ## Visiting the Website
-You can visit the link [https://c-validation-engine-h4dkhkhcdsggbuf3.centralus-01.azurewebsites.net/swagger](https://c-validation-engine-h4dkhkhcdsggbuf3.centralus-01.azurewebsites.net/swagger) to access the latest production build of the API with Swagger documentation.
+You can visit the link [https://c-validation-engine-h4dkhkhcdsggbuf3.centralus-01.azurewebsites.net/index.html](https://c-validation-engine-h4dkhkhcdsggbuf3.centralus-01.azurewebsites.net/index.html) to access the latest production build of the API with Swagger documentation.
 
-## Features (What You'll See)
-- **Native C++ Validation Engine** (high-performance validation in production)
-- Reusable Validation Rules (e.g., amount validation, currency validation, name validation)
+---
+
+## Features (What You’ll See)  
+- Reusable Validation Engine in modern C++17
+- Pluggable Rules (e.g., amount validation, currency validation, name validation)
 - Exported DLL Function (ValidatePayment) consumable by C# via P/Invoke
-- **C# Fallback Validation Engine** for cross-platform compatibility (Azure/Linux)
-- Environment-aware DLL loading (native C++ in production, C# fallback when needed)
-- Interop with ASP.NET Core Payment API (/api/payment)
+- C# Fallback Validation Engine for cross-platform compatibility (Azure/Linux)
+- Environment-aware DLL loading (native C++ in Windows dev, C# fallback in production)
+- Interop with ASP.NET Core Payment API (/api/nativepayment/validate)
 - Error reporting with detailed messages
-- Swagger UI for API exploration and testing
-- **Azure Web App Deployment** (Free tier, cost-optimized)
 
 ---
 
