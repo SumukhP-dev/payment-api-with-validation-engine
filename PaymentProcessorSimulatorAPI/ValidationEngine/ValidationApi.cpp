@@ -21,7 +21,7 @@
 
 // Global debug flag
 static bool g_debugEnabled = true;
-static std::ofstream g_debugLog;
+static std::ofstream g_debugLog("debug.log");  // Open debug log file
 
 extern "C" {
 #ifdef _WIN32
