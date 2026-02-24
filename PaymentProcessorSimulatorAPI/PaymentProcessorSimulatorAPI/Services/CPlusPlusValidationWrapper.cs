@@ -61,7 +61,7 @@ namespace PaymentApi.Services
 
             if (!_dllAvailable)
             {
-                return (false, "Payment validation failed. Please check your payment details and try again.");
+                return (false, $"Payment validation failed. Please check your payment details: customer name must be at least 2 characters, amount must be greater than 0, and currency must be a valid 3-letter code.");
             }
 
             // Import the function from the native DLL only when needed and available
