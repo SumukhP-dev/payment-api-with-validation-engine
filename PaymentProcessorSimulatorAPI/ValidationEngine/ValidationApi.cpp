@@ -20,7 +20,7 @@
 #endif
 
 // Global debug flag
-static bool g_debugEnabled = false;
+static bool g_debugEnabled = true;
 static std::ofstream g_debugLog;
 
 extern "C" {
