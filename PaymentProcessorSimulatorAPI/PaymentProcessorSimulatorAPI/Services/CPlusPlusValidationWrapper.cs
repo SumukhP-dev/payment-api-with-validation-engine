@@ -8,6 +8,8 @@ namespace PaymentApi.Services
         private static bool _dllChecked = false;
         private static bool _dllAvailable = false;
 
+        private static string _lastValidationErrorMessage = "";
+
         private static void CheckDllAvailability()
         {
             if (!_dllChecked)
@@ -60,7 +62,7 @@ namespace PaymentApi.Services
             if (!_dllAvailable)
             {
                 var enableCppValidation = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ENABLE_CPP_VALIDATION"));
-                return (false, $"Payment validation failed using C# validation engine - C++ validation engine failed and fell back to C# validation");
+                return (false, $"Payment validation failed using C# validation engine - C++ validation engine failed and fell back to C# validation (C++ engine attempted but failed: {GetLastValidationErrorMessage()})");
             }
 
             // Import the function from the native DLL only when needed and available
@@ -79,16 +81,24 @@ namespace PaymentApi.Services
                 
                 bool isValid = ValidatePayment(name, amount, currency, errorBuffer, bufferSize);
                 string errorMessage = errorBuffer.ToString();
+                _lastValidationErrorMessage = errorMessage; // Capture C++ error
                 return (isValid, errorMessage);
             }
             catch (DllNotFoundException)
             {
+                _lastValidationErrorMessage = "ValidationEngine.dll not found or not accessible.";
                 return (false, "ValidationEngine.dll not found or not accessible.");
             }
             catch (Exception ex)
             {
+                _lastValidationErrorMessage = $"Error calling validation engine: {ex.Message}";
                 return (false, $"Error calling validation engine: {ex.Message}");
             }
+        }
+
+        private static string GetLastValidationErrorMessage()
+        {
+            return _lastValidationErrorMessage;
         }
     }
 }
