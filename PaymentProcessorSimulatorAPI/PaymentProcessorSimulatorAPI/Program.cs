@@ -41,19 +41,22 @@ if (app.Environment.IsDevelopment() ||
     app.Environment.IsStaging() ||
     app.Environment.IsProduction())
 {
-    // ✅ Enable Swagger middleware
+    // Enable Swagger middleware
     app.UseSwagger();
 
-    // ✅ Enable Swagger UI at root URL (/)
+    // Enable Swagger UI at root URL (/)
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Processing API v1");
         options.RoutePrefix = string.Empty; // Swagger UI served at http://localhost:5000/
         options.EnableTryItOutByDefault();
         options.DisplayRequestDuration();
-        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-        options.DefaultModelsExpandDepth(-1);
-        options.DefaultModelExpandDepth(-1);
+        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
+        options.DefaultModelsExpandDepth(1);
+        options.DefaultModelExpandDepth(1);
+        options.ShowExtensions();
+        options.EnableFilter();
+        options.Filter(true);
     });
 }
 
