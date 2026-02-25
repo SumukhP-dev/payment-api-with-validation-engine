@@ -30,7 +30,7 @@ namespace PaymentApi.Controllers
         /// <returns>The created payment.</returns>
         /// <response code="201">The payment was created successfully.</response>
         /// <response code="400">The payment was invalid.</response>
-        [HttpPost("api/payment")]
+        [HttpPost("api/payments")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult CreatePayment([FromBody] Payment payment)
