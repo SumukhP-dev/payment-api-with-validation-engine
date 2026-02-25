@@ -25,10 +25,6 @@ builder.Services.AddSwaggerGen(options =>
         Description = "An API for handling payment processing with Swagger documentation."
     });
     
-    // Add default JSON example for Payment model
-    options.EnableAnnotations();
-    options.UseInlineDefinitionsForEnums();
-
     // Include XML comments for Swagger examples
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
