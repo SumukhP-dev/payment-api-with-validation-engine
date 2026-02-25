@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment() ||
     // Enable Swagger middleware
     app.UseSwagger();
 
-    // Enable Swagger UI at root URL (/)
+    // ✅ Enable Swagger UI at root URL (/)
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Processing API v1");
@@ -55,8 +55,6 @@ if (app.Environment.IsDevelopment() ||
         options.DefaultModelsExpandDepth(1);
         options.DefaultModelExpandDepth(1);
         options.ShowExtensions();
-        options.EnableFilter();
-        options.Filter(true);
     });
 }
 
