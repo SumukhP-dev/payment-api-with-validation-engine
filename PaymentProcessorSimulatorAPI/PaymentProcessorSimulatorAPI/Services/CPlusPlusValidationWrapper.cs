@@ -79,9 +79,16 @@ namespace PaymentApi.Services
                 const int bufferSize = 1024;
                 var errorBuffer = new StringBuilder(bufferSize);
                 
+                // Debug logging
+                Console.WriteLine($"[C# Wrapper] Calling C++ ValidatePayment with: name='{name}', amount={amount}, currency='{currency}'");
+                
                 bool isValid = ValidatePayment(name, amount, currency, errorBuffer, bufferSize);
                 string errorMessage = errorBuffer.ToString();
                 _lastValidationErrorMessage = errorMessage; // Capture C++ error
+                
+                // Debug logging
+                Console.WriteLine($"[C# Wrapper] C++ result: isValid={isValid}, errorMessage='{errorMessage}'");
+                
                 return (isValid, errorMessage);
             }
             catch (DllNotFoundException)
