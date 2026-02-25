@@ -49,10 +49,13 @@ if (app.Environment.IsDevelopment() ||
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Processing API v1");
         options.RoutePrefix = string.Empty; // Swagger UI served at http://localhost:5000/
+        options.InjectJavascript("/swagger-ui/custom.js");
+        options.InjectStylesheet("/swagger-ui/custom.css");
     });
 }
 
 app.UseRouting();
+app.UseStaticFiles(); // Serve static files for custom Swagger UI
 app.UseCors("AllowAll");
 // app.UseHttpsRedirection();
 app.UseAuthorization();

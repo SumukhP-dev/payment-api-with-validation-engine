@@ -1,0 +1,21 @@
+/* Custom CSS to enhance clear button functionality in Swagger UI */
+.btn.clear {
+    background-color: #ff6b6b !important;
+    border-color: #ff6b6b !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.btn.clear:hover {
+    background-color: #ff5252 !important;
+    border-color: #ff5252 !important;
+}
+
+.response-col:empty::after {
+    content: "Response cleared - Try another request!";
+    color: #6c757d;
+    font-style: italic;
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
