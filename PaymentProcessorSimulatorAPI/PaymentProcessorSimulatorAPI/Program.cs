@@ -28,6 +28,11 @@ builder.Services.AddSwaggerGen(options =>
     // Add default JSON example for Payment model
     options.EnableAnnotations();
     options.UseInlineDefinitionsForEnums();
+
+    // Include XML comments for Swagger examples
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
 
 // Register your Payment Service

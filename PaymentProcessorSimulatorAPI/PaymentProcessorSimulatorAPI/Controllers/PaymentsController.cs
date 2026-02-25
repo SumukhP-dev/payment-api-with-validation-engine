@@ -23,10 +23,16 @@ namespace PaymentApi.Controllers
             _paymentService = paymentService;
         }
 
+        /// <summary>
+        /// Creates a new payment.
+        /// </summary>
+        /// <param name="payment">The payment to create.</param>
+        /// <returns>The created payment.</returns>
+        /// <response code="201">The payment was created successfully.</response>
+        /// <response code="400">The payment was invalid.</response>
         [HttpPost("api/payment")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [SwaggerRequestExample(typeof(Payment), example: PaymentExample.Default)]
         public IActionResult CreatePayment([FromBody] Payment payment)
         {
             try
